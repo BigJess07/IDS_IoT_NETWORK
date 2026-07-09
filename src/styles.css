@@ -62,40 +62,93 @@
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
+  --radius: 0.5rem;
+  /* Deep terminal / SOC console palette */
+  --background: oklch(0.16 0.02 250);
+  --foreground: oklch(0.94 0.01 220);
+  --card: oklch(0.21 0.025 250);
+  --card-foreground: oklch(0.94 0.01 220);
+  --popover: oklch(0.21 0.025 250);
+  --popover-foreground: oklch(0.94 0.01 220);
+  --primary: oklch(0.82 0.18 155);        /* neon cyber green */
+  --primary-foreground: oklch(0.15 0.02 250);
+  --secondary: oklch(0.28 0.03 250);
+  --secondary-foreground: oklch(0.94 0.01 220);
+  --muted: oklch(0.24 0.025 250);
+  --muted-foreground: oklch(0.66 0.02 240);
+  --accent: oklch(0.72 0.18 220);         /* electric cyan */
+  --accent-foreground: oklch(0.15 0.02 250);
+  --destructive: oklch(0.65 0.24 22);     /* alarm red */
+  --destructive-foreground: oklch(0.98 0.01 60);
+  --warning: oklch(0.82 0.17 75);         /* amber */
+  --border: oklch(0.32 0.03 250);
+  --input: oklch(0.28 0.03 250);
+  --ring: oklch(0.72 0.18 220);
+  --chart-1: oklch(0.82 0.18 155);
+  --chart-2: oklch(0.72 0.18 220);
+  --chart-3: oklch(0.82 0.17 75);
+  --chart-4: oklch(0.65 0.24 22);
+  --chart-5: oklch(0.7 0.18 300);
+  --sidebar: oklch(0.19 0.025 250);
+  --sidebar-foreground: oklch(0.94 0.01 220);
+  --sidebar-primary: oklch(0.82 0.18 155);
+  --sidebar-primary-foreground: oklch(0.15 0.02 250);
+  --sidebar-accent: oklch(0.28 0.03 250);
+  --sidebar-accent-foreground: oklch(0.94 0.01 220);
+  --sidebar-border: oklch(0.32 0.03 250);
+  --sidebar-ring: oklch(0.72 0.18 220);
+  --grid-line: oklch(0.28 0.03 250);
 }
+
+@theme inline {
+  --color-warning: var(--warning);
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@layer base {
+  html, body {
+    font-family: var(--font-sans);
+    background:
+      radial-gradient(1200px 600px at 15% -10%, oklch(0.28 0.06 220 / 0.35), transparent 60%),
+      radial-gradient(900px 500px at 100% 0%, oklch(0.28 0.08 155 / 0.18), transparent 60%),
+      var(--color-background);
+    min-height: 100vh;
+  }
+  .font-mono, code, kbd, pre {
+    font-family: var(--font-mono);
+  }
+}
+
+@utility grid-bg {
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.35;
+}
+
+@utility glow-primary {
+  box-shadow: 0 0 0 1px oklch(0.82 0.18 155 / 0.4),
+    0 0 24px -6px oklch(0.82 0.18 155 / 0.55);
+}
+
+@utility glow-danger {
+  box-shadow: 0 0 0 1px oklch(0.65 0.24 22 / 0.5),
+    0 0 30px -4px oklch(0.65 0.24 22 / 0.65);
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.75); }
+}
+.pulse-dot { animation: pulse-dot 1.4s ease-in-out infinite; }
+
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.ticker { animation: ticker 40s linear infinite; }
 
 .dark {
   --background: oklch(0.129 0.042 264.695);
