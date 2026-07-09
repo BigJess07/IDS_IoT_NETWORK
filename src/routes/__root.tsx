@@ -77,14 +77,21 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "SentinelIoT — Lightweight IDS for IoT Networks" },
+      {
+        name: "description",
+        content:
+          "Edge-based intrusion detection dashboard for IoT networks. Real-time flow analysis powered by an optimized Random Forest classifier.",
+      },
+      { name: "author", content: "SentinelIoT" },
+      { property: "og:title", content: "SentinelIoT — Lightweight IDS Dashboard" },
+      {
+        property: "og:description",
+        content:
+          "Live edge IDS console: flow throughput, threat classification, and security alert log.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
@@ -92,6 +99,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: appCss,
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap",
+      },
     ],
   }),
   shellComponent: RootShell,
