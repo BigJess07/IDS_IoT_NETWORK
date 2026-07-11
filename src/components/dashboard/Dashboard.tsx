@@ -66,18 +66,21 @@ function fmtBytes(b: number) {
 
 export default function Dashboard() {
   const [running, setRunning] = useState(true);
-  const [series, setSeries] = useState<ThroughputPoint[]>(() => {
+  const [series, setSeries] = useState<ThroughputPoint[]>([]);
+  useEffect(() => {
     const now = Date.now();
-    return Array.from({ length: 30 }, (_, i) => {
-      const t = now - (30 - i) * 5000;
-      return {
-        t,
-        label: fmtTime(t),
-        bps: 40_000 + Math.random() * 30_000,
-        pps: 40 + Math.random() * 40,
-      };
-    });
-  });
+    setSeries(
+      Array.from({ length: 30 }, (_, i) => {
+        const t = now - (30 - i) * 5000;
+        return {
+          t,
+          label: fmtTime(t),
+          bps: 40_000 + Math.random() * 30_000,
+          pps: 40 + Math.random() * 40,
+        };
+      }),
+    );
+  }, []);
   const [flows, setFlows] = useState<FlowRow[]>([]);
   const [alerts, setAlerts] = useState<AlertRow[]>([]);
   const [totalFlows, setTotalFlows] = useState(12_487);
