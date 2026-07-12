@@ -59,10 +59,25 @@ automatically so demos and training still work.
 
 ## 3. Train the model
 
-Optionally drop a real dataset (CIC-IDS2017, CIC-IoT2023, IoT-23) into
-`backend/data/*.csv`. Columns must include those in
-`feature_extractor.FEATURE_NAMES` plus a `label` column. Otherwise a
-synthetic dataset is generated for a smoke test.
+Drop a real dataset into `backend/data/`. Auto-detected in this order:
+
+1. Any `backend/data/*.csv` whose columns already match
+   `feature_extractor.FEATURE_NAMES + ['label']` (e.g. CIC-IDS2017 export).
+2. **Bot-IoT** — put the UNSW CSVs under `backend/data/bot_iot/*.csv`.
+   Adapter: `backend/adapters/bot_iot.py`.
+3. **TON-IoT** — put the Zeek `Network_dataset_*.csv` files under
+   `backend/data/ton_iot/*.csv`. Adapter: `backend/adapters/ton_iot.py`.
+4. Fallback: a synthetic dataset is generated for a smoke test.
+
+Both adapters map the dataset-native attack taxonomy into
+`config.THREAT_CLASSES` and derive the 19 flow features in
+`FEATURE_NAMES` (duration, pps, bps, packet-size stats, TCP flag ratios,
+proto one-hot). You can also call them directly:
+
+```python
+from backend.adapters import load_bot_iot, load_ton_iot
+df = load_bot_iot("backend/data/bot_iot/")   # file or directory
+```
 
 ```bash
 python -m backend.train_model
